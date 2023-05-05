@@ -36,7 +36,7 @@ export class EmployeeListComponent implements OnInit{
       return 0;
       });
       */
-    For Sorting without Case-sentivity
+    // For Sorting without Case-sentivity
     employee.name.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
   }
