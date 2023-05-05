@@ -1,0 +1,46 @@
+<p>inline-editing works!</p>
+<h2>Employee List</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th> Name </th>
+            <th> Email</th>
+            <th> Number</th>
+            <th> Gender</th>
+            <th> Country</th>
+            <th> Date Of Birth</th>
+            <th> Interests </th>
+            <th> Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor = "let employee of employees">
+            <td>
+                <div *ngIf="!employee.isEdit">
+                    {{employee.name}}
+                </div>
+                <div *ngIf="employee.isEdit">
+                    <input type="text" class="form-control" [(ngModel)]="employee.name">
+                </div>
+            </td>
+            <td><div>{{employee.email}}</div><div *ngIf="employee.isEdit"><input type="email" class="form-control" [(ngModel)]="employee.email"></div></td>
+            <td><div>{{employee.number}}</div><div *ngIf="employee.isEdit"><input type="tel" class="form-control" [(ngModel)]="employee.number"></div></td>
+            <td>{{employee.gender}}</td>
+            <td>{{employee.country}}</td>
+            <td>{{employee.dob}}</td>
+            <td>{{employee.interests}}</td>
+            <td>
+                <div *ngIf="!employee.isEdit">
+                <button  (click)="getEmp(employee)" class="btn btn-info">Edit</button>
+                <button (click)="deleteEmployee(employee.id)" class="btn btn-danger" style="margin-left: 10px;">Delete</button>
+                <button (click)="employeeDetails(employee.id)" class="btn btn-info" style="margin-left: 10px;">View</button>
+                </div>
+                <div *ngIf="employee.isEdit">
+                    <button  (click)="getEmp(employee)" class="btn btn-info">Confirm</button>
+                    <button (click)="deleteEmployee(employee.id)" class="btn btn-danger" style="margin-left: 10px;">Cancel</button>
+                    <button (click)="close(employee)" class="btn btn-info" style="margin-left: 10px;">View</button>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>        

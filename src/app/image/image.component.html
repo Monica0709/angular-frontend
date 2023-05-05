@@ -1,0 +1,6 @@
+<div class="col-md-6 offset-md-3">
+    <h3>Select the image</h3>
+    <input type="file" multiple value="select" #selectFile 
+        (change)="onFileSelected($event)">
+        <button type="button" (click)="onUpload()">Upload</button>
+</div>

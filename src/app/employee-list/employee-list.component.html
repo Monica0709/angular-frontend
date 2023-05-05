@@ -1,0 +1,36 @@
+<h2>Employee List</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+			<th colspan="1">
+				<input st-search placeholder="Search Employee" class="input-sm form-control" type="text" [(ngModel)]="searchTerm"/>
+			</th>
+		</tr>
+        <tr>
+            <th (click)="sortDirection = sortDirection === 'asc' ? 'desc' : 'asc'; sortProperty = 'name'; sortEmployees()"> Name </th>
+            <th (click)="sortDirection = sortDirection === 'asc' ? 'desc' : 'asc'; sortProperty = 'email'; sortEmployees()"> Email</th>
+            <th (click)="sortDirection = sortDirection === 'asc' ? 'desc' : 'asc'; sortProperty = 'number'; sortEmployees()"> Number</th>
+            <th (click)="sortDirection = sortDirection === 'asc' ? 'desc' : 'asc'; sortProperty = 'gender'; sortEmployees()"> Gender</th>
+            <th (click)="sortDirection = sortDirection === 'asc' ? 'desc' : 'asc'; sortProperty = 'country'; sortEmployees()">Country</th>
+            <th (click)="sortDirection = sortDirection === 'asc' ? 'desc' : 'asc'; sortProperty = 'dob'; sortEmployees()"> Date Of Birth</th>
+            <th> Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor = "let employee of filteredEmployees | paginate: { itemsPerPage: pageSize, currentPage: page }">
+            
+            <td>{{employee.name}}</td>
+            <td>{{employee.email}}</td>
+            <td>{{employee.number}}</td>
+            <td>{{employee.gender}}</td>
+            <td>{{employee.country}}</td>
+            <td>{{employee.dob}}</td>
+            <td>
+                <button  (click)="updateEmployee(employee.id)" class="btn btn-info">Edit</button> 
+                <button (click)="deleteEmployee(employee.id)" class="btn btn-danger" style="margin-left: 10px;">Delete</button>
+                <button (click)="employeeDetails(employee.id)" class="btn btn-info" style="margin-left: 10px;">View</button>
+            </td>
+        </tr>
+    </tbody>
+</table>        
+<pagination-controls (pageChange)="page = $event"></pagination-controls>

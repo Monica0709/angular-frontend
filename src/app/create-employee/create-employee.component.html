@@ -1,0 +1,47 @@
+<div class="col-md-6 offset-md-3">
+<h3> Create Employee </h3>
+<form [formGroup]="createForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+        <label> Name </label>
+        <input type="text" class="form-control" id="name" placeholder="Enter Your Name"
+            [(ngModel)]="employee.name" name="name" required formControlName="name">
+            <div class="form-text text-danger" *ngIf="name.invalid && name?.touched ">
+                First Name is Required
+            </div>
+        <label> Email </label>
+        <input type="email" class="form-control" id="email" placeholder="Enter Your Email"
+            [(ngModel)]="employee.email" name="email"
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" formControlName="email">
+            <div *ngIf="email?.touched && email.invalid" class="form-text text-danger">Email is Required</div>
+        <label> Number </label>
+        <input type="text" class="form-control" id="number" placeholder="Enter Your Mobile Number"
+            [(ngModel)]="employee.number" name="number" formControlName="number">
+        <label> Gender </label>
+        <div>
+            <input type="radio"  id="gender" name="gender"[(ngModel)]="employee.gender" value="M" required  formControlName="gender"> Male
+            <input type="radio"  id="gender" name="gender"[(ngModel)]="employee.gender" value="F" required  formControlName="gender"> Female
+            <div *ngIf="gender?.touched && gender?.invalid" class="error">Gender is Required</div>
+        </div>
+        <label> Country </label>
+        <div>
+          <select id="country" name="country" [(ngModel)]="employee.country" required formControlName="country">
+            <option value="">Select a country</option>
+            <option value="USA">United States</option>
+            <option value="CAN">Canada</option>
+            <option value="IND">India</option>
+          </select>
+          <div *ngIf="country?.touched && country?.invalid" class="error">Country is Required</div>
+        </div>
+        <label>Date Of Birth</label> 
+        <div class="container">
+            <div class="row">
+                <div class="col-4">
+                    <input type="date" placeholder="Datepicker" class="form-control"[formControl]="dob" [(ngModel)]="employee.dob">
+                </div>
+            </div>
+        </div> 
+    </div>
+    <button class="btn btn-success" type="submit">submit</button>
+</form>
+</div>
+<button (click)="image(employee.id)" class="btn btn-info" style="margin-left: 10px;">Add Image</button>
