@@ -24,7 +24,7 @@ export class EmployeeListComponent implements OnInit{
     console.log('UpdateEmployeeComponent initialized.');
   }
   get filteredEmployees() {
-    return this.employees.filter(employee =>
+    return this.employees.filter(employee =>{
       // For Sorting with Case-sentivity
       /*
       if (a[this.sortProperty] > b[this.sortProperty]) {
@@ -37,8 +37,13 @@ export class EmployeeListComponent implements OnInit{
       });
       */
     // For Sorting without Case-sentivity
-    employee.name.toLowerCase().includes(this.searchTerm.toLowerCase())
-    );
+    return Object.values(employee).some(field => {
+      if (typeof field === 'string') {
+        return field.toLowerCase().includes(this.searchTerm.toLowerCase());
+      }
+      return false;
+    });
+  });
   }
   sortEmployees() {
     this.employees.sort((a, b) => {
