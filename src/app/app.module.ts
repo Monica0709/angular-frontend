@@ -19,6 +19,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { InlineEditingComponent } from './inline-editing/inline-editing.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,6 +45,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     MatInputModule,
     MatIconModule,
     NgxPaginationModule,
+    FontAwesomeModule,
   ],
   entryComponents: [
     ConfirmComponent

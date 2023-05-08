@@ -1,15 +1,25 @@
 <h2>Employee List</h2>
 <table class="table table-striped">
     <thead>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
         <tr>
 			<th colspan="1">
 				<input st-search placeholder="Search Employee" class="input-sm form-control" type="text" [(ngModel)]="searchTerm"/>
 			</th>
 		</tr>
         <tr>
-            <th (click)="sortDirection = sortDirection === 'asc' ? 'desc' : 'asc'; sortProperty = 'name'; sortEmployees()"> Name </th>
-            <th (click)="sortDirection = sortDirection === 'asc' ? 'desc' : 'asc'; sortProperty = 'email'; sortEmployees()"> Email</th>
-            <th (click)="sortDirection = sortDirection === 'asc' ? 'desc' : 'asc'; sortProperty = 'number'; sortEmployees()"> Number</th>
+            <th (click)="sortDirection = sortDirection === 'asc' ? 'desc' : 'asc'; sortProperty = 'name'; sortEmployees()">
+                <span>Name</span>
+                <i class="fas fa-sort fa-fw"></i>
+            </th>
+            <th (click)="sortDirection = sortDirection === 'asc' ? 'desc' : 'asc'; sortProperty = 'email'; sortEmployees()"> 
+                <span> Email </span>
+                <i class="fas fa-sort fa-fw"></i>
+            </th>
+            <th (click)="sortDirection = sortDirection === 'asc' ? 'desc' : 'asc'; sortProperty = 'number'; sortEmployees()"> 
+                <span> Number </span>
+                <i class="fas fa-sort fa-fw"></i>
+            </th>
             <th (click)="sortDirection = sortDirection === 'asc' ? 'desc' : 'asc'; sortProperty = 'gender'; sortEmployees()"> Gender</th>
             <th (click)="sortDirection = sortDirection === 'asc' ? 'desc' : 'asc'; sortProperty = 'country'; sortEmployees()">Country</th>
             <th (click)="sortDirection = sortDirection === 'asc' ? 'desc' : 'asc'; sortProperty = 'dob'; sortEmployees()"> Date Of Birth</th>
