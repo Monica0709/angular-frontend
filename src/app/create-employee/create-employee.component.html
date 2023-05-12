@@ -39,9 +39,15 @@
                     <input type="date" placeholder="Datepicker" class="form-control"[formControl]="dob" [(ngModel)]="employee.dob">
                 </div>
             </div>
-        </div> 
+        </div>
+        <label>Add Image</label>
+        <form action="add" method="post" enctype="multipart/form-data">
+            <div class="input-group">
+                <input type="file" class="form-control" id="image" name="image" aria-describedby="inputGroupFileAddon04" aria-label="Upload" required="required">
+            </div>
+    </form>
     </div>
     <button class="btn btn-success" type="submit">submit</button>
 </form>
 </div>
-<button (click)="image(employee.id)" class="btn btn-info" style="margin-left: 10px;">Add Image</button>
+

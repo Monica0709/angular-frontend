@@ -8,6 +8,7 @@ import { Employee } from './employee';
 })
 export class EmployeeService {
   private baseURL= "http://localhost:8080/api/employees";
+  private baseImage="http://localhost:8080/api/employees/image";
   public employeeStatus: string='';
   selectedGender: string='';
   constructor(private httpClient: HttpClient ) { }
@@ -28,5 +29,8 @@ export class EmployeeService {
   //delete Employee
   deleteEmployee(id: number): Observable<Object>{
     return this.httpClient.delete(`${this.baseURL}/${id}`);
+  }
+  createImage(employee:Employee):Observable<Employee>{
+    return this.httpClient.post<Employee>(`${this.baseImage}`,employee);
   }
 }
