@@ -9,4 +9,6 @@ export class Employee {
     dob= new Date();
     isEdit:boolean=false;
     [key: string]: any; 
+    image!:Blob
+    isCheckboxSelected!: boolean;
 }
