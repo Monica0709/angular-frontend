@@ -12,16 +12,27 @@ import { HttpClient } from '@angular/common/http'
   styleUrls: ['./create-employee.component.css']
 })
 export class CreateEmployeeComponent implements OnInit{
+  file:any;
   employee: Employee=new Employee();
   constructor(private employeeService: EmployeeService,
     private router: Router,private toastr:ToastrService,private http:HttpClient ){}
   ngOnInit():void{}
   saveEmployee(){
     this.employeeService.createEmployee(this.employee).subscribe(data =>{
-      console.log(data);
-      this.goToEmployeeList();
+        console.log(data);
+        this.goToEmployeeList();
     },
     error => console.log(error));
+  }
+  getFile(event:any){
+    this.file=event.target.files[0];
+    console.log('file',this.file);
+  }
+  submitData(){
+    let formData=new FormData();
+    formData.set("file",this.file)
+    this.http.post("http://localhost:8080/api/employees/uploadImage",formData).subscribe(
+      (response)=>{});
   }
   goToEmployeeList(){
     this.router.navigate(['/employees']); 
