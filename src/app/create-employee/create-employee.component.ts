@@ -12,6 +12,39 @@ import { HttpClient } from '@angular/common/http'
   styleUrls: ['./create-employee.component.css']
 })
 export class CreateEmployeeComponent implements OnInit{
+   selectedFile!: File;
+  retrievedImage: any;
+  base64Data: any;
+  retrieveResonse: any;
+  message!: string;
+  imageName: any;
+
+  //Gets called when the user selects an image
+  public onFileChanged(event:any) {
+    //Select File
+    this.selectedFile = event.target.files[0];
+  }
+
+
+  //Gets called when the user clicks on submit to upload the image
+  onUpload() {
+    console.log(this.selectedFile);
+    
+    const uploadImageData = new FormData();
+    uploadImageData.append('file', this.selectedFile, this.selectedFile.name);
+  
+    // Assuming you have the employee ID stored in a variable called `employeeId`
+    const employeeId = this.employee.id;
+  
+    this.http.post(`http://localhost:8080/api/employees/uploadImage?id=${employeeId}`, uploadImageData, { observe: 'response' })
+      .subscribe((response) => {
+        if (response.status === 200) {
+          this.message = 'Image uploaded successfully';
+        } else {
+          this.message = 'Image not uploaded successfully';
+        }
+      });
+  }
   file:any;
   employee: Employee=new Employee();
   constructor(private employeeService: EmployeeService,
@@ -23,16 +56,6 @@ export class CreateEmployeeComponent implements OnInit{
         this.goToEmployeeList();
     },
     error => console.log(error));
-  }
-  getFile(event:any){
-    this.file=event.target.files[0];
-    console.log('file',this.file);
-  }
-  submitData(){
-    let formData=new FormData();
-    formData.set("file",this.file)
-    this.http.post("http://localhost:8080/api/employees/uploadImage",formData).subscribe(
-      (response)=>{});
   }
   goToEmployeeList(){
     this.router.navigate(['/employees']); 

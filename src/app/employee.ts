@@ -11,4 +11,5 @@ export class Employee {
     [key: string]: any; 
     image!:Blob
     isCheckboxSelected!: boolean;
+    hobbies:string[]=[];
 }

@@ -37,7 +37,43 @@
                         <input type="date" placeholder="Datepicker" class="form-control"[formControl]="dob" [(ngModel)]="employee.dob">
                     </div>
                 </div>
-            </div>            
+            </div>  
+            <div class="container row">
+                <div class="col-md-12">
+                    <h1>Upload Image</h1>
+                </div>
+              </div>
+              
+              <div class="container row">
+                <div class="col-md-6">
+                    <input type="file" (change)="onFileChanged($event)">
+              
+                </div>
+                <div class="col-md-6">
+                    <input type="button" (click)="onUpload()" value="upload">
+                </div>
+              </div>
+              <hr />
+              <div class="container row">
+                <div class="col-md-12">
+                    <div *ngIf=message>{{message}}</div>
+                </div>
+              </div>
+              
+              <div class="container row">
+                <div class="col-md-6">
+                    <input type="text" class="form-control" id="name" placeholder="image name" [(ngModel)]="imageName"
+                        name="name" />
+                </div>
+              </div>
+              
+              <div class="container row">
+                <div class="col-md-12">
+                    <div *ngIf=retrievedImage>
+                        <img [src]="retrievedImage">
+                    </div>
+                </div>
+              </div>      
         </div>
         <button class="btn btn-success" type="submit">submit</button>
     </form>
