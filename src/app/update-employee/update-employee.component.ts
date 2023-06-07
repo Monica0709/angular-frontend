@@ -4,8 +4,9 @@ import { Employee } from '../employee';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
-
+import { HttpClient,HttpEvent,HttpEventType,HttpErrorResponse } from '@angular/common/http';
+import { DomSanitizer,SafeUrl } from '@angular/platform-browser';
+import { saveAs } from 'file-saver';
 @Component({
   selector: 'app-update-employee',
   templateUrl: './update-employee.component.html',
@@ -15,8 +16,10 @@ export class UpdateEmployeeComponent implements OnInit {
   id!: number;
   file:any;
   employee:Employee=new Employee();
+  filenames: string[] = [];
+  fileStatus = { status: '', requestType: '', percent: 0 };
   constructor(private employeeService:EmployeeService,private toastr:ToastrService, 
-    private route:ActivatedRoute, private router :Router,private http:HttpClient,){}
+    private route:ActivatedRoute, private router :Router,private http:HttpClient, private sanitizer: DomSanitizer){}
   ngOnInit(): void {
     this.id=this.route.snapshot.params['id'];
     this.employeeService.getEmployeeById(this.id).subscribe(data => {
@@ -36,21 +39,20 @@ export class UpdateEmployeeComponent implements OnInit {
   message!: string;
   imageName: any;
 
-  //Gets called when the user selects an image
   public onFileChanged(event:any) {
-    //Select File
     this.selectedFile = event.target.files[0];
   }
 
+  convertBase64ToImage(base64String: string): SafeUrl {
+    const imageUrl = 'data:image/jpeg;base64,' + base64String;
+    return this.sanitizer.bypassSecurityTrustUrl(imageUrl);
+  }
 
-  //Gets called when the user clicks on submit to upload the image
   onUpload() {
     console.log(this.selectedFile);
     
     const uploadImageData = new FormData();
     uploadImageData.append('file', this.selectedFile, this.selectedFile.name);
-  
-    // Assuming you have the employee ID stored in a variable called `employeeId`
     const employeeId = this.employee.id;
   
     this.http.post(`http://localhost:8080/api/employees/uploadImage?id=${employeeId}`, uploadImageData, { observe: 'response' })
@@ -61,9 +63,77 @@ export class UpdateEmployeeComponent implements OnInit {
           this.message = 'Image not uploaded successfully';
         }
       });
+      
+    }
+    onUploadFiles(event: any): void {
+      const files: File[] = event.target.files;
+      const formData = new FormData();
+      for (const file of files) {
+        formData.append('files', file, file.name);
+      }
+      this.employeeService.upload(formData).subscribe(
+        (event: any) => {
+          console.log(event);
+          this.resportProgress(event);
+        },
+        (error: any) => {
+          console.log(error);
+        }
+      );
+    }
+    
+
+  // define a function to download files
+  onDownloadFile(filename: string): void {
+    this.employeeService.download(filename).subscribe(
+      event => {
+        console.log(event);
+        this.resportProgress(event);
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error);
+      }
+    );
   }
 
-  
+  private resportProgress(httpEvent: HttpEvent<string[] | Blob>): void {
+    switch(httpEvent.type) {
+      case HttpEventType.UploadProgress:
+        this.updateStatus(httpEvent.loaded, httpEvent.total!, 'Uploading... ');
+        break;
+      case HttpEventType.DownloadProgress:
+        this.updateStatus(httpEvent.loaded, httpEvent.total!, 'Downloading... ');
+        break;
+      case HttpEventType.ResponseHeader:
+        console.log('Header returned', httpEvent);
+        break;
+      case HttpEventType.Response:
+        if (httpEvent.body instanceof Array) {
+          this.fileStatus.status = 'done';
+          for (const filename of httpEvent.body) {
+            this.filenames.unshift(filename);
+          }
+        } else {
+          saveAs(new File([httpEvent.body!], httpEvent.headers.get('File-Name')!, 
+                  {type: `${httpEvent.headers.get('Content-Type')};charset=utf-8`}));
+          // saveAs(new Blob([httpEvent.body!], 
+          //   { type: `${httpEvent.headers.get('Content-Type')};charset=utf-8`}),
+          //    httpEvent.headers.get('File-Name'));
+        }
+        this.fileStatus.status = 'done';
+        break;
+        default:
+          console.log(httpEvent);
+          break;
+      
+    }
+  }
+
+  private updateStatus(loaded: number, total: number, requestType: string): void {
+    this.fileStatus.status = 'progress';
+    this.fileStatus.requestType = requestType;
+    this.fileStatus.percent = Math.round(100 * loaded / total);
+  }
   goToEmployeeList(){
     this.toastr.success("Employee Updated Succesfully");
     this.router.navigate(['/employees']);

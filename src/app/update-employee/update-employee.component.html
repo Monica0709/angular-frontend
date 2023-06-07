@@ -38,10 +38,8 @@
                     </div>
                 </div>
             </div>  
-            <div class="container row">
-                <div class="col-md-12">
-                    <h1>Upload Image</h1>
-                </div>
+            <div class="container">
+                <label>Upload Image</label>
               </div>
               
               <div class="container row">
@@ -59,21 +57,53 @@
                     <div *ngIf=message>{{message}}</div>
                 </div>
               </div>
-              
-              <div class="container row">
-                <div class="col-md-6">
-                    <input type="text" class="form-control" id="name" placeholder="image name" [(ngModel)]="imageName"
-                        name="name" />
-                </div>
-              </div>
-              
               <div class="container row">
                 <div class="col-md-12">
                     <div *ngIf=retrievedImage>
                         <img [src]="retrievedImage">
                     </div>
                 </div>
-              </div>      
+              </div>
+              <div class="container" style="margin-top: 20px;">
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h4>Upload and Download Files</h4>
+                  </div><br>
+                  <div class="panel-body">        
+                    <strong>Select files from your computer</strong>
+                    <div *ngIf="fileStatus.status==='progress'">
+                      <div class="progress">
+                        <div [style.width.%]="fileStatus.percent" class="progress-bar progress-bar-animated bg-info" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+                            {{ fileStatus.requestType }} {{ fileStatus.percent }} 
+                          </div>
+                      </div>
+                    </div> <hr>
+              
+                    <form enctype="multipart/form-data">
+                      <fieldset>
+                        <div class="form-group">
+                          <div>
+                            <input type="file" (change)="onUploadFiles($event)" name="files" multiple class="form-control" />
+                          </div>
+                        </div>
+                      </fieldset>
+                    </form>
+                    
+                    <br>  
+                    
+                    <div *ngIf="filenames && filenames.length"  class="js-upload-finished">
+                      <h3>Processed files</h3>
+                      <div *ngFor="let filename of filenames" class="list-group">
+                        <a (click)="onDownloadFile(filename)" class="list-group-item list-group-item-success" style="cursor: pointer;">
+                          {{ filename }}            
+                          <a class="alert-success float-right">Download</a>
+                        </a><br>
+                      </div>
+                    </div>
+              
+                  </div>
+                </div>
+                  </div>      
         </div>
         <button class="btn btn-success" type="submit">submit</button>
     </form>

@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse,HttpEvent   } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, tap, throwError} from 'rxjs';
 import { Employee } from './employee';
@@ -32,5 +32,25 @@ export class EmployeeService {
   }
   createImage(employee:Employee):Observable<Employee>{
     return this.httpClient.post<Employee>(`${this.baseImage}`,employee);
+  }
+  getImage(employeeId: number): Observable<any> {
+    const url = `${this.baseURL}/${employeeId}/getImage`;
+
+    return this.httpClient.get(url, { responseType: 'blob' });
+  }
+  upload(formData: FormData): Observable<HttpEvent<string[]>> {
+    return this.httpClient.post<string[]>(`${this.baseURL}/fileupload`, formData, {
+      reportProgress: true,
+      observe: 'events'
+    });
+  }
+
+  // define function to download files
+  download(filename: string): Observable<HttpEvent<Blob>> {
+    return this.httpClient.get(`${this.baseURL}/download/${filename}`, {
+      reportProgress: true,
+      observe: 'events',
+      responseType: 'blob'
+    });
   }
 }

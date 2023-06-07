@@ -1,3 +1,5 @@
+import { SafeUrl } from "@angular/platform-browser";
+
 export class Employee {
     id: number=0;
     name: string='';
@@ -9,7 +11,7 @@ export class Employee {
     dob= new Date();
     isEdit:boolean=false;
     [key: string]: any; 
-    image!:Blob
+    image!:SafeUrl
     isCheckboxSelected!: boolean;
     hobbies:string[]=[];
 }
