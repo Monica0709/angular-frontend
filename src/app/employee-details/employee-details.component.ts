@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Employee } from '../employee';
 import { ActivatedRoute } from '@angular/router';
 import { EmployeeService } from '../employee.service';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer,SafeUrl } from '@angular/platform-browser';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-employee-details',
@@ -13,7 +14,9 @@ export class EmployeeDetailsComponent implements OnInit {
 
   id!: number;
   employee: Employee;
-  constructor(private route:ActivatedRoute, private employeeService:EmployeeService, private sanitizer: DomSanitizer){
+  retrievedImage: any;
+  imageDataUrl!: string;
+  constructor(private route:ActivatedRoute, private employeeService:EmployeeService, private sanitizer: DomSanitizer,private http: HttpClient){
     this.employee = new Employee();
   }
 

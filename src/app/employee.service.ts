@@ -33,9 +33,8 @@ export class EmployeeService {
   createImage(employee:Employee):Observable<Employee>{
     return this.httpClient.post<Employee>(`${this.baseImage}`,employee);
   }
-  getImage(employeeId: number): Observable<any> {
+  getEmployeeImage(employeeId: number): Observable<Blob> {
     const url = `${this.baseURL}/${employeeId}/getImage`;
-
     return this.httpClient.get(url, { responseType: 'blob' });
   }
   upload(formData: FormData): Observable<HttpEvent<string[]>> {

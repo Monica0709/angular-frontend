@@ -42,12 +42,6 @@ export class UpdateEmployeeComponent implements OnInit {
   public onFileChanged(event:any) {
     this.selectedFile = event.target.files[0];
   }
-
-  convertBase64ToImage(base64String: string): SafeUrl {
-    const imageUrl = 'data:image/jpeg;base64,' + base64String;
-    return this.sanitizer.bypassSecurityTrustUrl(imageUrl);
-  }
-
   onUpload() {
     console.log(this.selectedFile);
     
@@ -65,6 +59,7 @@ export class UpdateEmployeeComponent implements OnInit {
       });
       
     }
+
     onUploadFiles(event: any): void {
       const files: File[] = event.target.files;
       const formData = new FormData();

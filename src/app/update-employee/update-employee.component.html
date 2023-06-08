@@ -9,7 +9,7 @@
             <input type="email" class="form-control" id="email" placeholder="Enter Your Email"
                 [(ngModel)]="employee.email" name="email"
                 pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" formControlName="email">
-                <div *ngIf="email && email.invalid" class="form-text text-danger">Email is Required</div>
+                <div *ngIf="email.invalid" class="form-text text-danger">Email is Invalid</div>
             <label> Number </label>
             <input type="text" class="form-control" id="number" placeholder="Enter Your Mobile Number"
                 [(ngModel)]="employee.number" name="number" formControlName="number">
@@ -39,7 +39,7 @@
                 </div>
             </div>  
             <div class="container">
-                <label>Upload Image</label>
+                <label>Add Your Profile</label>
               </div>
               
               <div class="container row">
@@ -51,7 +51,6 @@
                     <input type="button" (click)="onUpload()" value="upload">
                 </div>
               </div>
-              <hr />
               <div class="container row">
                 <div class="col-md-12">
                     <div *ngIf=message>{{message}}</div>
@@ -66,11 +65,9 @@
               </div>
               <div class="container" style="margin-top: 20px;">
                 <div class="panel panel-default">
-                  <div class="panel-heading">
-                    <h4>Upload and Download Files</h4>
-                  </div><br>
+                    <label>Add Your Resume</label>
                   <div class="panel-body">        
-                    <strong>Select files from your computer</strong>
+                   Select files from your computer
                     <div *ngIf="fileStatus.status==='progress'">
                       <div class="progress">
                         <div [style.width.%]="fileStatus.percent" class="progress-bar progress-bar-animated bg-info" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
