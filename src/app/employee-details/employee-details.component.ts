@@ -15,6 +15,7 @@ export class EmployeeDetailsComponent implements OnInit {
   id!: number;
   employee: Employee;
   retrievedImage: any;
+  imageUrl!: string; 
   imageDataUrl!: string;
   constructor(private route:ActivatedRoute, private employeeService:EmployeeService, private sanitizer: DomSanitizer,private http: HttpClient){
     this.employee = new Employee();
@@ -25,6 +26,17 @@ export class EmployeeDetailsComponent implements OnInit {
     this.employee=new Employee();
     this.employeeService.getEmployeeById(this.id).subscribe(data => {
       this.employee=data;
+      this.getEmployeeImage(this.employee.id); 
     })
+  }
+  getEmployeeImage(employeeId: number): void {
+    this.employeeService.getEmployeeImage(employeeId)
+      .subscribe((imageBlob: Blob) => {
+        const imageUrl: string = URL.createObjectURL(imageBlob);
+        this.imageUrl = imageUrl;
+      }, (error: any) => {
+        // Handle error
+        console.error('Error fetching employee image:', error);
+      });
   }
 }
