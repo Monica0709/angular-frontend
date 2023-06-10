@@ -47,8 +47,8 @@ export class EmployeeListComponent implements OnInit{
   }
   sortEmployees() {
     this.employees.sort((a, b) => {
-      const aValue = a[this.sortProperty].toLowerCase();
-      const bValue = b[this.sortProperty].toLowerCase();
+      const aValue = a[this.sortProperty]?.toLowerCase() || '';
+      const bValue = b[this.sortProperty]?.toLowerCase() || '';
       return this.sortDirection === 'asc' ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
     });
   }

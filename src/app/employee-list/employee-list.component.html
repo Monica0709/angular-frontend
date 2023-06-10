@@ -23,7 +23,6 @@
             <th (click)="sortDirection = sortDirection === 'asc' ? 'desc' : 'asc'; sortProperty = 'gender'; sortEmployees()"> Gender</th>
             <th (click)="sortDirection = sortDirection === 'asc' ? 'desc' : 'asc'; sortProperty = 'country'; sortEmployees()">Country</th>
             <th (click)="sortDirection = sortDirection === 'asc' ? 'desc' : 'asc'; sortProperty = 'dob'; sortEmployees()"> Date Of Birth</th>
-            <th> Hobbies </th>
             <th> Actions</th>
         </tr>
     </thead>
@@ -36,7 +35,6 @@
             <td>{{employee.gender}}</td>
             <td>{{employee.country}}</td>
             <td>{{employee.dob}}</td>
-            <td>{{employee.hobbies}}</td>
             <td>
                 <button  (click)="updateEmployee(employee.id)" class="btn btn-info">Edit</button> 
                 <button (click)="deleteEmployee(employee.id)" class="btn btn-danger" style="margin-left: 10px;">Delete</button>
