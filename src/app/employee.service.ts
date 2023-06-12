@@ -37,8 +37,8 @@ export class EmployeeService {
     const url = `${this.baseURL}/${employeeId}/getImage`;
     return this.httpClient.get(url, { responseType: 'blob' });
   }
-  upload(formData: FormData): Observable<HttpEvent<string[]>> {
-    return this.httpClient.post<string[]>(`${this.baseURL}/fileupload`, formData, {
+  upload(employeeId: number, formData: FormData): Observable<HttpEvent<string[]>> {
+    return this.httpClient.post<string[]>(`${this.baseURL}/fileupload/${employeeId}`, formData, {
       reportProgress: true,
       observe: 'events'
     });

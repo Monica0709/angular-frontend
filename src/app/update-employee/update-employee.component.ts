@@ -61,12 +61,13 @@ export class UpdateEmployeeComponent implements OnInit {
     }
 
     onUploadFiles(event: any): void {
+      const employeeId = this.employee.id; // Replace with the actual employee ID
       const files: File[] = event.target.files;
       const formData = new FormData();
       for (const file of files) {
         formData.append('files', file, file.name);
       }
-      this.employeeService.upload(formData).subscribe(
+      this.employeeService.upload(employeeId, formData).subscribe(
         (event: any) => {
           console.log(event);
           this.resportProgress(event);
