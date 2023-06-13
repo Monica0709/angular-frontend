@@ -22,4 +22,9 @@
         <label><b>Image :</b></label>
         <img [src]="imageUrl" alt="Employee Image"  width="300" height="300">
     </div>
+    <div>
+        <label>File:</label>
+        <button (click)="downloadFile(id)">Download File</button>
+        <div *ngIf="errorMessage">{{ errorMessage }}</div>
+    </div>
 </div>

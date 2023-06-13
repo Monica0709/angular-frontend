@@ -87,17 +87,6 @@
                     </form>
                     
                     <br>  
-                    
-                    <div *ngIf="filenames && filenames.length"  class="js-upload-finished">
-                      <h3>Processed files</h3>
-                      <div *ngFor="let filename of filenames" class="list-group">
-                        <a (click)="onDownloadFile(filename)" class="list-group-item list-group-item-success" style="cursor: pointer;">
-                          {{ filename }}            
-                          <a class="alert-success float-right">Download</a>
-                        </a><br>
-                      </div>
-                    </div>
-              
                   </div>
                 </div>
                   </div>      

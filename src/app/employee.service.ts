@@ -45,10 +45,8 @@ export class EmployeeService {
   }
 
   // define function to download files
-  download(filename: string): Observable<HttpEvent<Blob>> {
-    return this.httpClient.get(`${this.baseURL}/download/${filename}`, {
-      reportProgress: true,
-      observe: 'events',
+  download(employeeId: number): Observable<any> {
+    return this.httpClient.get(`${this.baseURL}/download/${employeeId}`, {
       responseType: 'blob'
     });
   }

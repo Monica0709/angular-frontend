@@ -14,4 +14,5 @@ export class Employee {
     image!:SafeUrl
     isCheckboxSelected!: boolean;
     hobbies:string[]=[];
+    filepath:string='';
 }

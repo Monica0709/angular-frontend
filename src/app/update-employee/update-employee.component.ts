@@ -80,17 +80,7 @@ export class UpdateEmployeeComponent implements OnInit {
     
 
   // define a function to download files
-  onDownloadFile(filename: string): void {
-    this.employeeService.download(filename).subscribe(
-      event => {
-        console.log(event);
-        this.resportProgress(event);
-      },
-      (error: HttpErrorResponse) => {
-        console.log(error);
-      }
-    );
-  }
+ 
 
   private resportProgress(httpEvent: HttpEvent<string[] | Blob>): void {
     switch(httpEvent.type) {
