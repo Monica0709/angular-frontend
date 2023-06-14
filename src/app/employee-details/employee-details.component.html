@@ -20,7 +20,8 @@
     </div>
     <div>
         <label><b>Image :</b></label>
-        <img [src]="imageUrl" alt="Employee Image"  width="300" height="300">
+        <img *ngIf="imageUrl" [src]="imageUrl" alt="Employee Image" width="300" height="300">
+<div *ngIf="errorMessage !== ''" class="error-message">{{ errorMessage }}</div>
     </div>
     <div>
         <label>File:</label>
