@@ -20,6 +20,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { InlineEditingComponent } from './inline-editing/inline-editing.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ExcellComponent } from './excell/excell.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     UpdateEmployeeComponent,
     EmployeeDetailsComponent,
     ImageComponent, 
-    ConfirmComponent, InlineEditingComponent,
+    ConfirmComponent, InlineEditingComponent, ExcellComponent,
   ],
   imports: [
     BrowserModule,

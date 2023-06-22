@@ -6,6 +6,7 @@ import { UpdateEmployeeComponent } from './update-employee/update-employee.compo
 import { EmployeeDetailsComponent } from './employee-details/employee-details.component';
 import { ImageComponent } from './image/image.component';
 import { InlineEditingComponent } from './inline-editing/inline-editing.component';
+import { ExcellComponent } from './excell/excell.component';
 
 
 const routes: Routes = [
@@ -14,6 +15,7 @@ const routes: Routes = [
   {path:'update-employee/:id',component: UpdateEmployeeComponent},
   {path:'employee-details/:id',component:EmployeeDetailsComponent},
   {path:'inline-editing',component:InlineEditingComponent},
+  {path:'excell',component:ExcellComponent},
   {path:'image',component:ImageComponent},
   {path:'', redirectTo:'employees', pathMatch:'full'}
 ];

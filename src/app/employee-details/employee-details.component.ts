@@ -79,21 +79,6 @@ downloadFile(employeeId: number): void {
     }
     return '';
   }
-  downloadPdf(): void {
-    const doc = new jsPDF();
-    doc.text('Details of the Employee', 50, 10);
-    doc.text(`Name: ${this.employee.name}`, 10, 20);
-    doc.text(`Email: ${this.employee.email}`, 10, 30);
-    doc.text(`Number: ${this.employee.number}`, 10, 40);
-    doc.text(`Gender: ${this.employee.gender}`, 10, 50);
-    doc.text(`Country: ${this.employee.country}`, 10, 60);
-    doc.text(`Date of Birth: ${this.employee.dob}`, 10, 70);
-    if (this.imageUrl) {
-      const img = new Image();
-      img.src = this.imageUrl;
-      doc.addImage(img, 'JPEG', 10, 80, 100, 100);
-    }
-    doc.save(`${this.employee.name} details.pdf`);
-  }
+ 
   
 }
