@@ -24,8 +24,13 @@
 <div *ngIf="errorMessage !== ''" class="error-message">{{ errorMessage }}</div>
     </div>
     <div>
-        <label>File:</label>
+        <label><b>Resume download : </b></label>
         <button (click)="downloadFile(id)">Download File</button>
         <div *ngIf="errorMessage">{{ errorMessage }}</div>
     </div>
+    <br>
+    <div>
+        <label><b>Download the Employee details : </b></label>
+        <button (click)="downloadPdf()">Download PDF</button>
+        <div *ngIf="errorMessage">{{ errorMessage }}</div>
 </div>
