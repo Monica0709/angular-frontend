@@ -28,6 +28,11 @@
         <button (click)="downloadFile(id)">Download File</button>
         <div *ngIf="errorMessage">{{ errorMessage }}</div>
     </div>
+    <div>
+        <label>File:</label>
+        <button (click)="downloadPdf()">Download PDF</button>
+        <div *ngIf="errorMessage">{{ errorMessage }}</div>
+    
     <br>
     <div>
         <div *ngIf="errorMessage">{{ errorMessage }}</div>
