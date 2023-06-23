@@ -9,6 +9,7 @@ import { Employee } from './employee';
 export class EmployeeService {
   private baseURL= "http://localhost:8080/api/employees";
   private baseImage="http://localhost:8080/api/employees/uploadImage";
+  private apiUrl = 'http://localhost:8080/api/employees/uploadExcel';
   public employeeStatus: string='';
   selectedGender: string='';
   constructor(private httpClient: HttpClient ) { }
@@ -49,5 +50,11 @@ export class EmployeeService {
     return this.httpClient.get(`${this.baseURL}/download/${employeeId}`, {
       responseType: 'blob'
     });
+  }
+  uploadExcel(file: File): Observable<Employee[]> {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    return this.httpClient.post<Employee[]>(this.apiUrl, formData);
   }
 }

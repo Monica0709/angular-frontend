@@ -1,6 +1,6 @@
 <div>
     <label><b>Upload your excel file</b></label><br>
-    <input type="file"  accept=".xlsx">
-    <button >Upload file</button>
+    <input type="file" (change)="onFileSelected($event)">
+
     <button (click)="downloadSampleExcel()">Sample Download</button>
 </div>
