@@ -17,6 +17,7 @@ export class EmployeeDetailsComponent implements OnInit {
   retrievedImage: any;
   imageUrl: string | null = null;
   imageDataUrl!: string;
+  downloadedFiles: string[] = [];
   errorMessage: string | null = null;
   constructor(private route:ActivatedRoute, private employeeService:EmployeeService, private sanitizer: DomSanitizer,private http: HttpClient){
     this.employee = new Employee();
@@ -58,6 +59,8 @@ downloadFile(employeeId: number): void {
       downloadLink.download = `${this.employee.name}.pdf`; 
       downloadLink.click();
       window.URL.revokeObjectURL(url);
+      const filename = `${this.employee.name}.pdf`;
+      this.downloadedFiles.push(filename);
     },
     (error: HttpErrorResponse) => {
       if (error.status === 404) {
@@ -95,7 +98,12 @@ downloadFile(employeeId: number): void {
       img.src = this.imageUrl;
       doc.addImage(img, 'JPEG', 10, 80, 100, 100);
     }
-  
+    const filename = `${this.employee.name} details.pdf`;
+    this.downloadedFiles.push(filename); 
+    doc.text('Downloaded Files:', 10, 90);
+    for (let i = 0; i < this.downloadedFiles.length; i++) {
+      doc.text(`${i + 1}. ${this.downloadedFiles[i]}`, 10, 100 + i * 10);
+    }
     doc.save(` ${this.employee.name} details.pdf`);
   }
   
