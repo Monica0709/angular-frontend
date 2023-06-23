@@ -81,7 +81,7 @@ downloadFile(employeeId: number): void {
   }
   downloadPdf(): void {
     const doc = new jsPDF();
-    doc.text('View Employee Details', 10, 10);
+    doc.text(`Details of ${this.employee.name} `, 70, 10);
     doc.text(`Name: ${this.employee.name}`, 10, 20);
     doc.text(`Email: ${this.employee.email}`, 10, 30);
     doc.text(`Number: ${this.employee.number}`, 10, 40);
@@ -96,7 +96,7 @@ downloadFile(employeeId: number): void {
       doc.addImage(img, 'JPEG', 10, 80, 100, 100);
     }
   
-    doc.save('employee-details.pdf');
+    doc.save(` ${this.employee.name} details.pdf`);
   }
   
 }

@@ -23,7 +23,6 @@ export class ExcellComponent implements OnInit{
       this.employeeService.uploadExcel(file).subscribe(
         (employees: Employee[]) => {
           console.log('Uploaded employees:', employees);
-          // Handle the uploaded employees
         },
         (error) => {
           console.error('Error uploading file:', error);
@@ -32,19 +31,22 @@ export class ExcellComponent implements OnInit{
       );
     }
   }
-  
+  goToEmployeeList(){
+    this.router.navigate(['/employees']); 
+  }
   downloadSampleExcel(): void {
     const data: Array<any> = [
-      ['Name', 'Email'],
-      ['John Doe', 'john@gmail.com' ],
-      ['Jane Smith','jane@gmail.com' ],
-      ['Bob Johnson', 'bob@gmail.com' ]
+      ['Name', 'Email', 'Number', 'DOB', 'Gender', 'Country'],
+      ['John Doe', 'john@gmail.com', '1234567890', '1985-05-20', 'M', 'USA'],
+      ['Jane Smith', 'jane@gmail.com', '9876543210', '1990-10-15', 'F', 'CAN'],
+      ['Bob Johnson', 'bob@gmail.com', '5678901234', '1988-03-25', 'M', 'IND']
     ];
-
+  
     const worksheet: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(data);
     const workbook: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
-
+  
     XLSX.writeFile(workbook, 'sample.xlsx');
   }
+  
 }
