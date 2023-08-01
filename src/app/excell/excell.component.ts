@@ -23,6 +23,7 @@ export class ExcellComponent implements OnInit{
       this.employeeService.uploadExcel(file).subscribe(
         (employees: Employee[]) => {
           console.log('Uploaded employees:', employees);
+          this.goToEmployeeList();
         },
         (error) => {
           console.error('Error uploading file:', error);
